@@ -33,7 +33,7 @@ from magicgui.application import use_app
 from napari.qt.threading import thread_worker
 from napari.utils.colormaps import label_colormap
 from psygnal import Signal
-from qtpy.QtWidgets import QSizePolicy, QScrollArea
+from qtpy.QtWidgets import QSizePolicy
 
 from . import DEBUG
 
@@ -643,8 +643,6 @@ def plugin_wrapper():
     plugin.input_scale.value = DEFAULTS["input_scale"]
     plugin.label_head.value = '<small>Star-convex object detection for 2D and 3D images.<br>If you are using this in your research please <a href="https://github.com/stardist/stardist#how-to-cite" style="color:gray;">cite us</a>.</small><br><br><tt><a href="https://stardist.net" style="color:gray;">https://stardist.net</a></tt>'
 
-    plugin.label_head.native.setMinimumHeight(140)
-
     # make labels prettier (https://doc.qt.io/qt-5/qsizepolicy.html#Policy-enum)
     for w in (plugin.label_head, plugin.label_nn, plugin.label_nms, plugin.label_adv):
         w.native.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
@@ -1232,9 +1230,5 @@ def plugin_wrapper():
 
     # for i in range(layout.count()):
     #     print(i, layout.itemAt(i).widget())
-
-    scroll = QScrollArea()
-    scroll.setWidget(plugin._widget._qwidget)
-    plugin._widget._qwidget = scroll
 
     return plugin
